@@ -37,8 +37,12 @@ export default function App() {
     }
   }
 
-  const onRemoveItem = (todoIdToRemove) => {
-    removeTodoById(todoIdToRemove);
+  const onRemoveItem = (todoIdToRemove, isCompleted) => {
+    if (isCompleted) {
+      removeCompletedTodoById(todoIdToRemove)
+    } else {
+      removeTodoById(todoIdToRemove);
+    }
   }
 
   const removeTodoById = (todoId) => {
@@ -53,15 +57,15 @@ export default function App() {
     }));
   }
 
-  const onCheckTodoItem = (id, isCompleted) => {
+  const onCheckTodoItem = (todoId, isCompleted) => {
     if (!isCompleted) {
-      const completedTodo = todos.find((todo) => todo.id == id);
+      const completedTodo = todos.find((todo) => todo.id == todoId);
       completedTodo.isCompleted = true;
       setCompletedTodos([...completedTodos, completedTodo]);
       removeTodoById(completedTodo.id);
-      
+
     } else {
-      const todo = completedTodos.find((todo) => todo.id == id);
+      const todo = completedTodos.find((todo) => todo.id == todoId);
       todo.isCompleted = false;
       setTodos([...todos, todo]);
       removeCompletedTodoById(todo.id)

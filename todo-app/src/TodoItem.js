@@ -16,7 +16,7 @@ export default function TodoItem({ id, title, isCompleted }) {
                         checked={isCompleted}
                         onChange={() => onCheckTodoItem(id, isCompleted)} />
                     <span>{title}</span>
-                    <span onClick={() => onRemoveItem(id)}>X</span>
+                    <span onClick={() => onRemoveItem(id, isCompleted)}>X</span>
                 </label>
             </li>
         </span>
