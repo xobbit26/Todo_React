@@ -9,15 +9,21 @@ export default function App() {
   const [completedTodos, setCompletedTodos] = useState([]);
 
   useEffect(() => {
-    const raw = localStorage.getItem('todos')
+    const todos = localStorage.getItem('todos')
       ? JSON.parse(localStorage.getItem('todos'))
       : [];
-    setTodos(raw);
+
+    const completedTodos = localStorage.getItem('completedTodos')
+      ? JSON.parse(localStorage.getItem('completedTodos'))
+      : [];
+    setTodos(todos);
+    setCompletedTodos(completedTodos);
   }, []);
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
+    localStorage.setItem('completedTodos', JSON.stringify(completedTodos));
+  }, [todos, completedTodos]);
 
   const onAddTodo = (event) => {
     if (event.key === 'Enter' && todoTitle !== '') {
@@ -32,27 +38,34 @@ export default function App() {
   }
 
   const onRemoveItem = (todoIdToRemove) => {
+    removeTodoById(todoIdToRemove);
+  }
+
+  const removeTodoById = (todoId) => {
     setTodos(todos.filter((todo) => {
-      return todo.id !== todoIdToRemove;
+      return todo.id !== todoId;
     }));
   }
 
-  const onCheckTodoItem = (event) => {
-    const { todoId, isChecked } = event.target;
+  const removeCompletedTodoById = (todoId) => {
+    setCompletedTodos(completedTodos.filter((todo) => {
+      return todo.id !== todoId;
+    }));
+  }
 
-    if (isChecked) {
-      const completedTodo = todos.find((todo) => todo.id === todoId);
+  const onCheckTodoItem = (id, isCompleted) => {
+    if (!isCompleted) {
+      const completedTodo = todos.find((todo) => todo.id == id);
+      completedTodo.isCompleted = true;
       setCompletedTodos([...completedTodos, completedTodo]);
-      onRemoveItem(completedTodo.id);
-
+      removeTodoById(completedTodo.id);
+      
     } else {
-      const todo = completedTodos.find((todo) => todo.id === todoId);
+      const todo = completedTodos.find((todo) => todo.id == id);
+      todo.isCompleted = false;
       setTodos([...todos, todo]);
-      setCompletedTodos(completedTodos.filter((todo) => {
-        return todo.id !== todoId;
-      }));
+      removeCompletedTodoById(todo.id)
     }
-
   }
 
   return (

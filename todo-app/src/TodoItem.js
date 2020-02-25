@@ -4,15 +4,17 @@ import { TodoContext } from './context';
 export default function TodoItem({ id, title, isCompleted }) {
     const { onRemoveItem, onCheckTodoItem } = useContext(TodoContext);
 
-    const cls = isCompleted? "todo completed" : "todo";
+    const cls = isCompleted ? "todo completed" : "todo";
 
     return (
         <span>
             <li className={cls}>
                 <label>
-                    <input type="checkBox"
+                    <input
+                        id={id}
+                        type="checkBox"
                         checked={isCompleted}
-                        onChange={(event) => onCheckTodoItem(event)} />
+                        onChange={() => onCheckTodoItem(id, isCompleted)} />
                     <span>{title}</span>
                     <span onClick={() => onRemoveItem(id)}>X</span>
                 </label>
