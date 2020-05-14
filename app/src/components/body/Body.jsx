@@ -4,10 +4,10 @@ import TodoList from '../todo-list/TodoList';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import './body.css';
 
-export default function Body({todoList}) {
+export default function Body({ todoList }) {
     const [todoText, setTodoText] = useState("");
 
-    function onInputChange(e){
+    function onInputChange(e) {
         setTodoText(e.target.value);
     }
 
@@ -21,9 +21,8 @@ export default function Body({todoList}) {
                 <InputGroup.Append>
                     <Button variant="outline-secondary">Button</Button>
                 </InputGroup.Append>
-
-                <TodoList />
             </InputGroup>
+            <TodoList todoList={todoList} />
         </div>
     )
 }
