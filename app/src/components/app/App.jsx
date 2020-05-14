@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import Header from './components/header/Header';
-import Body from './components/body/Body';
+import Header from '../header/Header';
+import Body from '../body/Body';
+import { getTodoList } from '../../api/todo-api';
 
-import './App.css';
+import './app.css';
 
 export default function App() {
   const [todoList, setTodoList] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/todo/todo-list")
+    getTodoList()
       .then(response => response.json())
       .then(data => {
         setTodoList(data);
