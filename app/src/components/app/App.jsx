@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../header/Header';
 import Body from '../body/Body';
-import { fetchTodoList } from '../../api/todo-api';
+import { fetchTodoList, createTodo } from '../../api/todo-api';
 
 import './app.css';
 
@@ -18,10 +18,18 @@ export default function App() {
       });
   }
 
+  function onCreateTodo(todoText) {
+    createTodo({ text: todoText })
+      .then(() => getTodoList());
+  }
+
   return (
     <div className="app">
       <Header />
-      <Body todoList={todoList} />
+      <Body
+        todoList={todoList}
+        onCreateTodo={onCreateTodo}
+      />
     </div>
   )
 }
