@@ -3,6 +3,7 @@ import { TodoContext } from '../../../todoContext';
 import { commonFormat } from '../../../utils/date-utils';
 
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSquare, faCheckSquare } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import './todo-item.css';
@@ -14,20 +15,21 @@ import './todo-item.css';
 export const TodoItem = React.memo(({ todoItem }) => {
     const { onDeleteTodo, onCompleteTodo } = useContext(TodoContext);
 
+    let checkBoxIcon = todoItem.completed
+        ? faCheckSquare
+        : faSquare
 
     return (
         <div className="row todo-item">
             <div className="col-md-2">
-                <input type="checkbox"
-                    checked={todoItem.completed}
-                    onChange={() => onCompleteTodo(todoItem.id)} />
+                <FontAwesomeIcon icon={checkBoxIcon} checked={todoItem.completed} onClick={() => onCompleteTodo(todoItem.id)} />
             </div>
             <div className="col-md-6 todo-item-text">
-                <p>{todoItem.text}</p>
+                {todoItem.text}
             </div>
             <div className="col-md-3">{commonFormat(todoItem.createdOn)}</div>
             <div className="col-md-1">
-                <FontAwesomeIcon 
+                <FontAwesomeIcon
                     className="todo-item-delete"
                     icon={faTrashAlt}
                     title="delete"

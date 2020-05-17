@@ -27,7 +27,7 @@ export default function Body() {
                     placeholder="Input your new todo"
                     value={todoText}
                     onChange={onInputChange}
-                    ref={input=>{textInputRef = input}} />
+                    ref={input => { textInputRef = input }} />
                 <InputGroup.Append>
                     <Button
                         variant="outline-secondary"

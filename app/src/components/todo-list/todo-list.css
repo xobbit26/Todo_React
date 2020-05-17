@@ -4,4 +4,5 @@ div.todo-item {
     background-color: #F6F6F6;
     border-radius: 3px;
     min-height: 50px;
+    align-items: center;
 }
