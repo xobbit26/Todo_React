@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import TodoList from '../todo-list/TodoList';
+import { TodoContext } from "../../todoContext";
 
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import './body.css';
 
-export default function Body({ todoList, onCreateTodo }) {
+export default function Body() {
     const [todoText, setTodoText] = useState("");
+    const { onCreateTodo } = useContext(TodoContext);
 
     function onInputChange(e) {
         setTodoText(e.target.value);
@@ -31,7 +33,7 @@ export default function Body({ todoList, onCreateTodo }) {
                     </Button>
                 </InputGroup.Append>
             </InputGroup>
-            <TodoList todoList={todoList} />
+            <TodoList />
         </div>
     )
 }

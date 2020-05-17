@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../header/Header';
 import Body from '../body/Body';
-import { fetchTodoList, createTodo } from '../../api/todo-api';
+import { fetchTodoList, createTodo, deleteTodo } from '../../api/todo-api';
+import { TodoContext } from '../../todoContext';
 
 import './app.css';
 
@@ -23,13 +24,19 @@ export default function App() {
       .then(() => getTodoList());
   }
 
+  function onDeleteTodo(todoId) {
+    deleteTodo(todoId)
+      .then(() => getTodoList());
+  }
+
   return (
     <div className="app">
       <Header />
-      <Body
-        todoList={todoList}
-        onCreateTodo={onCreateTodo}
-      />
+      <TodoContext.Provider value={{
+        todoList, onCreateTodo, onDeleteTodo
+      }}>
+        <Body />
+      </TodoContext.Provider>
     </div>
   )
 }
