@@ -1,3 +1,12 @@
-.todo-item-text{
+div.todo-item {
+    margin: inherit;
+    margin-bottom: 10px;
+    background-color: #F6F6F6;
+    border-radius: 3px;
+    min-height: 50px;
+}
+
+.todo-item-text {
     text-align: left;
+    overflow-x: hidden
 }

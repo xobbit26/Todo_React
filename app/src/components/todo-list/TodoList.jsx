@@ -1,22 +1,26 @@
 import React, { useContext } from 'react';
 import { TodoContext } from '../../todoContext';
+import {commonFormat} from '../../utils/date-utils';
 
 import './todo-list.css';
 
+/**
+ * React memo needs to get rid of memory leak
+ * now TodoItem component is re-rendered only if todoItem property has been changed
+ */
 const TodoItem = React.memo(({ todoItem }) => {
-    console.log("todoItem", todoItem);
     const { onDeleteTodo } = useContext(TodoContext);
 
     return (
-        <div className="row">
+        <div className="row todo-item">
             <div className="col-md-2">
                 <input type="checkbox" checked={todoItem.completed} />
             </div>
             <div className="col-md-6 todo-item-text">
-                {todoItem.text}
+                <p>{todoItem.text}</p>
             </div>
-            <div className="col-md-2">{todoItem.createdOn}</div>
-            <div className="col-md-2">
+            <div className="col-md-3">{commonFormat(todoItem.createdOn)}</div>
+            <div className="col-md-1">
                 <a type="link" title="delete" onClick={() => onDeleteTodo(todoItem.id)}>x</a>
             </div>
         </div>
