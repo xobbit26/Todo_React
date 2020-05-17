@@ -1,42 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../header/Header';
 import Body from '../body/Body';
-import { fetchTodoList, createTodo, deleteTodo } from '../../api/todo-api';
+import { fetchTodoList, createTodo, deleteTodo, updateTodo } from '../../api/todo-api';
 import { TodoContext } from '../../todoContext';
+
+var moment = require('moment');
 
 import './app.css';
 
 export default function App() {
-  const [todoList, setTodoList] = useState([]);
+	const [todoList, setTodoList] = useState([]);
 
-  useEffect(() => { getTodoList() }, []);
+	useEffect(() => { getTodoList() }, []);
 
-  function getTodoList() {
-    fetchTodoList()
-      .then(response => response.json())
-      .then(data => {
-        setTodoList(data);
-      });
-  }
+	function getTodoList() {
+		fetchTodoList()
+			.then(response => response.json())
+			.then(data => {
+				setTodoList(data);
+			});
+	}
 
-  function onCreateTodo(todoText) {
-    createTodo({ text: todoText })
-      .then(() => getTodoList());
-  }
+	function onCreateTodo(todoText) {
+		createTodo({ text: todoText })
+			.then(() => getTodoList());
+	}
 
-  function onDeleteTodo(todoId) {
-    deleteTodo(todoId)
-      .then(() => getTodoList());
-  }
+	function onDeleteTodo(todoId) {
+		deleteTodo(todoId)
+			.then(() => getTodoList()); I
+	}
 
-  return (
-    <div className="app">
-      <Header />
-      <TodoContext.Provider value={{
-        todoList, onCreateTodo, onDeleteTodo
-      }}>
-        <Body />
-      </TodoContext.Provider>
-    </div>
-  )
+	function onCompleteTodo(todoId) {
+		const todoToUpdate = todoList.find(x => x.id === todoId);
+		
+		const completedDateTime = moment();
+		todoToUpdate.completedOn = completedDateTime;
+		todoToUpdate.updatedOn = completedDateTime;
+		todoToUpdate.completed = !todoToUpdate.completed;
+
+		updateTodo(todoId, todoToUpdate)
+			.then(() => getTodoList());
+	}
+
+	return (
+		<div className="app">
+			<Header />
+			<TodoContext.Provider value={{
+				todoList, onCreateTodo, onDeleteTodo, onCompleteTodo
+			}}>
+				<Body />
+			</TodoContext.Provider>
+		</div>
+	)
 }

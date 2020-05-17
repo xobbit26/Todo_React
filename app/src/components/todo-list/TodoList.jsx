@@ -4,16 +4,18 @@ import { TodoContext } from '../../todoContext';
 
 import './todo-list.css';
 
-export default function TodoList() {
-    const { todoList } = useContext(TodoContext);
+export default function TodoList({ completedTodos }) {
+	const { todoList } = useContext(TodoContext);
 
-    return (
-        <div>
-            {todoList.map((item) => {
-                return (
-                    <TodoItem key={item.id} todoItem={item} />
-                )
-            })}
-        </div>
-    )
+	return (
+		<div>
+			{todoList.map((item) => {
+				if (item.completed !== completedTodos) {
+					return (
+						<TodoItem key={item.id} todoItem={item} />
+					)
+				}
+			})}
+		</div>
+	)
 }

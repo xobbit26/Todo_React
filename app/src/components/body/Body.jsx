@@ -33,8 +33,9 @@ export default function Body() {
                     </Button>
                 </InputGroup.Append>
             </InputGroup>
-            <TodoList />
+            <TodoList completedTodos={true} />
             <hr />
+            <TodoList completedTodos={false} />
         </div>
     )
 }

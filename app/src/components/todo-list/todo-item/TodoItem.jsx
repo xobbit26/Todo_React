@@ -9,12 +9,15 @@ import './todo-item.css';
  * now TodoItem component is re-rendered only if todoItem property has been changed
  */
 export const TodoItem = React.memo(({ todoItem }) => {
-    const { onDeleteTodo } = useContext(TodoContext);
+    const { onDeleteTodo, onCompleteTodo } = useContext(TodoContext);
+
 
     return (
         <div className="row todo-item">
             <div className="col-md-2">
-                <input type="checkbox" checked={todoItem.completed} />
+                <input type="checkbox"
+                    checked={todoItem.completed}
+                    onChange={() => onCompleteTodo(todoItem.id)} />
             </div>
             <div className="col-md-6 todo-item-text">
                 <p>{todoItem.text}</p>
