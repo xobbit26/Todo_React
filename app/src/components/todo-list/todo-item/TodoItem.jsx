@@ -2,6 +2,9 @@ import React, { useContext } from 'react';
 import { TodoContext } from '../../../todoContext';
 import { commonFormat } from '../../../utils/date-utils';
 
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import './todo-item.css';
 
 /**
@@ -24,7 +27,11 @@ export const TodoItem = React.memo(({ todoItem }) => {
             </div>
             <div className="col-md-3">{commonFormat(todoItem.createdOn)}</div>
             <div className="col-md-1">
-                <a type="link" title="delete" onClick={() => onDeleteTodo(todoItem.id)}>x</a>
+                <FontAwesomeIcon 
+                    className="todo-item-delete"
+                    icon={faTrashAlt}
+                    title="delete"
+                    onClick={() => onDeleteTodo(todoItem.id)} />
             </div>
         </div>
     )

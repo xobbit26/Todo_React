@@ -2,3 +2,7 @@
     text-align: left;
     overflow-x: hidden
 }
+
+.todo-item-delete {
+    cursor: pointer;
+}

@@ -28,7 +28,7 @@ export default function App() {
 
 	function onDeleteTodo(todoId) {
 		deleteTodo(todoId)
-			.then(() => getTodoList()); I
+			.then(() => getTodoList());
 	}
 
 	function onCompleteTodo(todoId) {
