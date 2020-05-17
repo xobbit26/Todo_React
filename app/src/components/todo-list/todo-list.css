@@ -5,8 +5,3 @@ div.todo-item {
     border-radius: 3px;
     min-height: 50px;
 }
-
-.todo-item-text {
-    text-align: left;
-    overflow-x: hidden
-}

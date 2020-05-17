@@ -34,6 +34,7 @@ export default function Body() {
                 </InputGroup.Append>
             </InputGroup>
             <TodoList />
+            <hr />
         </div>
     )
 }
