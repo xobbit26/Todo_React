@@ -15,10 +15,7 @@ export default function App() {
 
 	function getTodoList() {
 		fetchTodoList()
-			.then(response => response.json())
-			.then(data => {
-				setTodoList(data);
-			});
+			.then(data => setTodoList(data));
 	}
 
 	function onCreateTodo(todoText) {

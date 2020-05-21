@@ -8,7 +8,11 @@ const UPDATE_TODO = CREATE_TODO;
 
 
 export const fetchTodoList = () => {
-    return fetch(GET_TODO_LIST_URL);
+    return fetch(GET_TODO_LIST_URL)
+        .then(response => {
+            console.log("response", response);
+            return response.json()
+        });
     //TODO: added excepton handling;
 }
 
